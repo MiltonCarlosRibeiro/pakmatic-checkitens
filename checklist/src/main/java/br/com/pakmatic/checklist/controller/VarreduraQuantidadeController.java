@@ -19,10 +19,10 @@ public class VarreduraQuantidadeController {
     /**
      * Endpoint para varredura de um item específico e soma total de quantidades.
      *
-     * @param file Excel enviado
-     * @param colunaItem Nome da coluna onde está o código do item
+     * @param file             Excel enviado
+     * @param colunaItem       Nome da coluna onde está o código do item
      * @param colunaQuantidade Nome da coluna onde está a quantidade
-     * @param item Item que deseja procurar (ex: M8x10)
+     * @param item             Item que deseja procurar (ex: M8x10)
      * @return Lista de ocorrências e soma total
      */
     @PostMapping("/varredura-quantidade")

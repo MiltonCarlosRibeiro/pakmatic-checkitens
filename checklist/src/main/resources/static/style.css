@@ -1,187 +1,100 @@
-/* 🌐 Reset & Global */
-* {
-  box-sizing: border-box;
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
   margin: 0;
   padding: 0;
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f4f8;
-  color: #333;
-  padding: 2rem 1rem;
-}
-
 .container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: auto;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  margin-top: 40px;
+  border-radius: 10px;
 }
 
-/* 🔵 Título e Descrição */
 .logo {
   display: block;
-  margin: 0 auto 1rem;
+  margin: 0 auto 20px auto;
   max-width: 180px;
 }
 
-h1.titulo {
+.titulo {
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  color: #1e88e5;
+  color: #2c3e50;
 }
 
 .descricao {
   text-align: center;
-  margin-bottom: 2.5rem;
-  font-size: 1.1rem;
   color: #555;
+  margin-bottom: 30px;
 }
 
-/* 📦 Card Container */
 .card {
-  background-color: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-  margin-bottom: 2rem;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  background: #fafafa;
 }
 
-.card h2 {
-  color: #1e88e5;
-  margin-bottom: 1.5rem;
-  font-size: 1.6rem;
-}
-
-/* 📝 Campos e Formulários */
-form.formulario {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-fieldset {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1.5rem;
-}
-
-legend {
-  font-weight: bold;
-  font-size: 1rem;
-  color: #444;
-  margin-bottom: 1rem;
-}
-
-label {
-  display: block;
-  margin-bottom: 0.8rem;
-  font-weight: 500;
-}
-
-input[type="text"],
-input[type="file"] {
-  width: 100%;
-  padding: 0.6rem;
+.formulario fieldset {
   border: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding: 15px;
   border-radius: 6px;
-  font-size: 1rem;
 }
 
-/* ✅ Checkbox */
+.formulario label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.formulario input[type="text"],
+.formulario input[type="file"] {
+  padding: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
 .checkboxOpcao {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: bold;
-  margin-top: 1rem;
+  margin-top: 10px;
 }
 
-.checkboxOpcao input[type="checkbox"] {
-  transform: scale(1.2);
-  cursor: pointer;
+.modoManualCampos {
+  display: none;
 }
 
-/* 🔘 Botões */
 button {
-  background-color: #1e88e5;
+  background: #2980b9;
   color: white;
-  padding: 0.8rem 1.2rem;
   border: none;
-  border-radius: 6px;
-  font-size: 1rem;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 0.5rem;
+  margin-top: 10px;
 }
 
 button:hover {
-  background-color: #1565c0;
+  background: #3498db;
 }
 
-/* 📊 Resultados */
 .resultado {
-  background-color: #e3f2fd;
-  padding: 1.2rem;
-  border-radius: 8px;
-  margin-top: 1.5rem;
-  font-family: monospace;
-  white-space: pre-wrap;
-  line-height: 1.4;
+  margin-top: 20px;
 }
 
-/* 📋 Blocos de resultado individuais */
-.blocoResultado {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  background-color: #fff;
-  border-left: 4px solid #1e88e5;
-  border-radius: 5px;
-  font-size: 0.95rem;
-}
-
-/* 🔻 Loader */
-#loader {
-  position: fixed;
-  display: none;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(255, 255, 255, 0.85);
-  z-index: 1000;
-  align-items: center;
+.botoesExportacao {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
   justify-content: center;
 }
 
-/* 🔚 Footer */
 footer {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid #ccc;
+  margin-top: 50px;
   text-align: center;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-footer a {
-  color: #1e88e5;
-  text-decoration: none;
-  margin-left: 5px;
-}
-
-@media (max-width: 768px) {
-  .card {
-    padding: 1.5rem;
-  }
-
-  h1.titulo {
-    font-size: 2rem;
-  }
-
-  .card h2 {
-    font-size: 1.3rem;
-  }
-
-  .descricao {
-    font-size: 1rem;
-  }
+  color: #888;
 }

@@ -1,60 +1,55 @@
 package br.com.pakmatic.checklist.util;
 
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
-/**
- * Classe utilitária para ler colunas específicas de arquivos Excel.
- */
-@Component
 public class ExcelReader {
 
-    /**
-     * Extrai todos os valores de uma coluna específica com base no nome do cabeçalho.
-     *
-     * @param file     Arquivo Excel .xlsx
-     * @param nomeColuna Nome do cabeçalho da coluna a ser extraída
-     * @return Lista de Strings com os valores da coluna
-     */
-    public List<String> extrairValores(MultipartFile file, String nomeColuna) {
-        List<String> valores = new ArrayList<>();
+    public static Map<String, Integer> lerProdutos(MultipartFile file, String colunaChave, boolean procurarTodaLinha) throws IOException {
+        Map<String, Integer> mapa = new HashMap<>();
 
-        try (InputStream input = file.getInputStream(); Workbook workbook = new XSSFWorkbook(input)) {
+        try (Workbook workbook = WorkbookFactory.create(file.getInputStream())) {
             Sheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> rowIterator = sheet.iterator();
+            int linhaInicio = 1;
 
-            if (!rowIterator.hasNext()) return valores;
+            for (int i = linhaInicio; i <= sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+                if (row == null) continue;
 
-            Row headerRow = rowIterator.next();
-            int colunaIndex = -1;
-            for (Cell cell : headerRow) {
-                if (cell.getStringCellValue().equalsIgnoreCase(nomeColuna.trim())) {
-                    colunaIndex = cell.getColumnIndex();
-                    break;
+                String chave = "";
+                int quantidade = 1;
+
+                if (procurarTodaLinha) {
+                    for (Cell cell : row) {
+                        if (cell.getCellType() == CellType.STRING) {
+                            String valor = cell.getStringCellValue().trim();
+                            if (!valor.isBlank()) {
+                                mapa.put(valor, mapa.getOrDefault(valor, 0) + 1);
+                            }
+                        }
+                    }
+                } else {
+                    Cell cellChave = row.getCell(buscarIndiceColuna(sheet, colunaChave));
+                    if (cellChave != null && cellChave.getCellType() == CellType.STRING) {
+                        chave = cellChave.getStringCellValue().trim();
+                        mapa.put(chave, mapa.getOrDefault(chave, 0) + quantidade);
+                    }
                 }
             }
-
-            if (colunaIndex == -1) return valores;
-
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
-                Cell cell = row.getCell(colunaIndex);
-                if (cell != null) {
-                    cell.setCellType(CellType.STRING);
-                    valores.add(cell.getStringCellValue().trim());
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        return mapa;
+    }
 
-        return valores;
+    private static int buscarIndiceColuna(Sheet sheet, String nomeColuna) {
+        Row header = sheet.getRow(0);
+        for (Cell cell : header) {
+            if (cell.getStringCellValue().trim().equalsIgnoreCase(nomeColuna)) {
+                return cell.getColumnIndex();
+            }
+        }
+        throw new IllegalArgumentException("Coluna não encontrada: " + nomeColuna);
     }
 }

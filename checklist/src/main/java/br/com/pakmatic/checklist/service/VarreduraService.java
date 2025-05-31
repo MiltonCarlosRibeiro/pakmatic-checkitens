@@ -1,50 +1,54 @@
 package br.com.pakmatic.checklist.service;
 
 import br.com.pakmatic.checklist.model.ResultadoVarredura;
-import br.com.pakmatic.checklist.util.ExcelReaderVarredura;
-import org.apache.poi.ss.usermodel.Workbook;
+import br.com.pakmatic.checklist.util.ExcelReader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.*;
 
 /**
- * Serviço que realiza a varredura completa entre duas listas com base em colunas de produto e quantidade.
+ * Serviço que realiza a varredura automática entre duas planilhas.
  */
 @Service
 public class VarreduraService {
 
-    public ResultadoVarredura analisar(MultipartFile file1, MultipartFile file2,
-                                       String colProduto1, String colQtd1,
-                                       String colProduto2, String colQtd2) throws IOException {
+    public ResultadoVarredura analisarComparativo(
+            MultipartFile arquivo1,
+            MultipartFile arquivo2,
+            String colunaProduto1,
+            String colunaProduto2,
+            boolean procurarTodaLinha
+    ) throws IOException {
 
-        Map<String, Integer> mapa1 = ExcelReaderVarredura.lerArquivo(file1, colProduto1, colQtd1);
-        Map<String, Integer> mapa2 = ExcelReaderVarredura.lerArquivo(file2, colProduto2, colQtd2);
+        Map<String, Integer> produtos1 = ExcelReader.lerProdutos(arquivo1, colunaProduto1, procurarTodaLinha);
+        Map<String, Integer> produtos2 = ExcelReader.lerProdutos(arquivo2, colunaProduto2, procurarTodaLinha);
 
-        Set<String> todos = new HashSet<>();
-        todos.addAll(mapa1.keySet());
-        todos.addAll(mapa2.keySet());
+        Set<String> todosItens = new HashSet<>();
+        todosItens.addAll(produtos1.keySet());
+        todosItens.addAll(produtos2.keySet());
 
         List<String> emAmbas = new ArrayList<>();
         List<String> apenasNaTabela1 = new ArrayList<>();
         List<String> apenasNaTabela2 = new ArrayList<>();
         List<String> quantidadeDiferente = new ArrayList<>();
 
-        for (String produto : todos) {
-            boolean em1 = mapa1.containsKey(produto);
-            boolean em2 = mapa2.containsKey(produto);
+        for (String item : todosItens) {
+            boolean existe1 = produtos1.containsKey(item);
+            boolean existe2 = produtos2.containsKey(item);
 
-            if (em1 && em2) {
-                if (Objects.equals(mapa1.get(produto), mapa2.get(produto))) {
-                    emAmbas.add(produto);
+            if (existe1 && existe2) {
+                int qtd1 = produtos1.get(item);
+                int qtd2 = produtos2.get(item);
+                if (qtd1 == qtd2) {
+                    emAmbas.add(item);
                 } else {
-                    quantidadeDiferente.add(produto + " (" + mapa1.get(produto) + " vs " + mapa2.get(produto) + ")");
+                    quantidadeDiferente.add(item + " (T1: " + qtd1 + ", T2: " + qtd2 + ")");
                 }
-            } else if (em1) {
-                apenasNaTabela1.add(produto);
+            } else if (existe1) {
+                apenasNaTabela1.add(item + " (Qtd: " + produtos1.get(item) + ")");
             } else {
-                apenasNaTabela2.add(produto);
+                apenasNaTabela2.add(item + " (Qtd: " + produtos2.get(item) + ")");
             }
         }
 

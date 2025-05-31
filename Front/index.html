@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Comparador de Estruturas</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="container">
+    <img src="assets/pakmatic_icon.png" alt="Logotipo Pakmatic" class="logo"/>
+    <h1 class="titulo">🔍 Comparador de Estruturas</h1>
+    <p class="descricao">Compare listas de produtos entre planilhas Excel e gere relatórios em PDF/XLSX.</p>
+
+    <!-- Loader oculto -->
+    <div id="loader" style="display:none; justify-content:center; align-items:center; margin-bottom:1rem;">
+      <img src="assets/loader.gif" alt="Carregando..." style="width: 50px; height: 50px;">
+    </div>
+
+    <!-- Card 1 - Comparação Personalizada -->
+    <div class="card">
+      <h2>📊 Comparação Personalizada</h2>
+      <form id="formComparacao" class="formulario" enctype="multipart/form-data">
+        <fieldset>
+          <legend>📁 Upload de Arquivos</legend>
+          <label>Tabela 1: <input type="file" name="arquivo1" required></label>
+          <label>Tabela 2: <input type="file" name="arquivo2" required></label>
+        </fieldset>
+
+        <fieldset id="grupoComparacoes">
+          <legend>🔧 Campos de Comparação</legend>
+          <div class="campoComparacao">
+            <label>Produto (Tabela 1): <input type="text" name="colProd1[]" placeholder="Ex: ITEM_COMPONENTE" required></label>
+            <label>Quantidade (Tabela 1): <input type="text" name="colQtd1[]" placeholder="Ex: QTDE" required></label>
+            <label>Produto (Tabela 2): <input type="text" name="colProd2[]" placeholder="Ex: Código Item" required></label>
+            <label>Quantidade (Tabela 2): <input type="text" name="colQtd2[]" placeholder="Ex: Quantidade" required></label>
+          </div>
+        </fieldset>
+
+        <button type="button" class="botaoAdicionar" id="btnAdicionarPar">➕ Adicionar Comparação</button>
+        <button type="submit" class="botaoComparar">📊 Comparar</button>
+        <button type="button" class="botaoDownload" onclick="baixarXLSX()">📥 Baixar XLSX</button>
+        <button type="button" class="botaoDownload" onclick="baixarPDF()">🖨️ Baixar PDF</button>
+      </form>
+      <div id="resultado" class="resultado"></div>
+    </div>
+
+    <!-- Card 2 - Varredura Completa -->
+    <div class="card">
+      <h2>🧪 Varredura Completa entre Planilhas</h2>
+      <form id="formVarredura" class="formulario" enctype="multipart/form-data">
+        <fieldset>
+          <legend>🔍 Parâmetros de Varredura</legend>
+          <label>Tabela 1: <input type="file" name="varreduraArquivo1" required></label>
+          <label>Tabela 2: <input type="file" name="varreduraArquivo2" required></label>
+          <label>Coluna Produto (Tabela 1): <input type="text" name="colProduto1" placeholder="Ex: ITEM_COMPONENTE" required></label>
+          <label>Coluna Produto (Tabela 2): <input type="text" name="colProduto2" placeholder="Ex: CÓDIGO_ITEM" required></label>
+
+          <div class="checkboxOpcao">
+            <input type="checkbox" name="procurarTodaLinha" id="procurarTodaLinha"/>
+            <label for="procurarTodaLinha">🔎 Procurar em toda a linha</label>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="botaoVarredura">🚀 Executar Varredura</button>
+      </form>
+      <div id="resultadoVarredura" class="resultado"></div>
+    </div>
+
+    <!-- Card 3 - Varredura de Quantidade de Item -->
+    <div class="card">
+      <h2>📦 Análise de Quantidade de Item</h2>
+      <form id="formQuantidadeItem" class="formulario" enctype="multipart/form-data">
+        <fieldset>
+          <legend>📌 Parâmetros</legend>
+          <label>Arquivo Excel: <input type="file" name="arquivo" required></label>
+          <label>Item a buscar: <input type="text" name="item" placeholder="Ex: M8x10" required></label>
+          <label>Coluna do Produto (opcional): <input type="text" name="colunaProduto" placeholder="Ex: ITEM_COMPONENTE"></label>
+
+          <div class="checkboxOpcao">
+            <input type="checkbox" name="modoHibrido" id="modoHibrido"/>
+            <label for="modoHibrido">🔄 Procurar em toda a linha</label>
+          </div>
+        </fieldset>
+
+        <button type="submit">🔍 Buscar Item</button>
+      </form>
+      <div id="resultadoQuantidade" class="resultado"></div>
+    </div>
+  </div>
+
+  <!-- Rodapé -->
+  <footer>
+    Desenvolvido por Pakmatic com apoio da 
+    <a href="https://www.pakmatic.com.br/" target="_blank">Pakmatic</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

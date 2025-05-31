@@ -1,0 +1,163 @@
+/* 🌐 Reset & Global */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  padding: 2rem;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+}
+
+h1.titulo {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #1e88e5;
+}
+
+.descricao {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* 📦 Card */
+.card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.card h2 {
+  color: #1e88e5;
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+legend {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.8rem;
+  padding: 0 0.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-top: 0.3rem;
+}
+
+/* 🔘 Checkbox híbrido */
+.checkboxOpcao {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: bold;
+  margin-top: 1.2rem;
+}
+
+/* 🔵 Botões */
+button {
+  background-color: #1e88e5;
+  color: white;
+  padding: 0.9rem 1.4rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #1565c0;
+  transform: scale(1.02);
+}
+
+.resultado {
+  background-color: #e3f2fd;
+  padding: 1.3rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  font-family: monospace;
+  white-space: pre-wrap;
+  color: #1e1e1e;
+}
+
+/* 🔄 Loader animado */
+.loader-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.spinner {
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid #1e88e5;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 📌 Logo e Footer */
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+  max-width: 180px;
+}
+
+footer {
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid #ccc;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+footer a {
+  color: #1e88e5;
+  text-decoration: none;
+  margin-left: 5px;
+}
